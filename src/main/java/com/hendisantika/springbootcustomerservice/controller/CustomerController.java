@@ -1,6 +1,7 @@
 package com.hendisantika.springbootcustomerservice.controller;
 
 import com.hendisantika.springbootcustomerservice.domain.Customer;
+import com.hendisantika.springbootcustomerservice.exception.ResourceNotFoundException;
 import com.hendisantika.springbootcustomerservice.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,10 @@ public class CustomerController {
     @GetMapping(value = "/customers")
     public Page<Customer> getAllData(Pageable pageable) {
         return customerRepository.findAll(pageable);
+    }
 
+    @GetMapping(value = "/customers/{customerId}")
+    public Customer findByCustomerId(@PathVariable Integer customerId) {
+        return customerRepository.findById(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer [customerId=" + customerId + "] can't be found"));
     }
 }
