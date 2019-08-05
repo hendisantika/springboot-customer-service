@@ -21,16 +21,16 @@ public class Customer implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "CUSTOMERID", updatable = false)
+    @Column(name = "CUSTOMER_ID", updatable = false)
     private Integer customerId;
 
     @Column(name = "NAME")
     private String customerName;
 
-    @Column(name = "DATEOFBIRTH", nullable = true)
+    @Column(name = "DOB", nullable = true)
     private LocalDate dateofBirth;
 
-    @Column(name = "PHONENUMBER")
+    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
 
