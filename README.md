@@ -158,3 +158,12 @@ $ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -
    "customerId" : 4
 }
 ```
+### Add an account of customer Sakura
+
+$ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -d '{"accountNumber": 30981069,"accountName": "gold plus","balance": 12000,"openingDate": "2016-05-16"}' http://localhost:8088/restapi/customers/3/accounts | json_pp
+{
+   "balance" : 12000,
+   "accountNumber" : 30981069,
+   "accountName" : "gold plus",
+   "openingDate" : "2016-05-16"
+}
