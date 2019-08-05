@@ -62,3 +62,47 @@ $ curl -s -G http://localhost:8080/api/customers | json_pp
    "totalPages" : 1
 }
 ```
+
+### Find all customers with sorting
+```
+$ curl -s -G http://localhost:8080/api/customers?sort=customerId,desc | json_pp
+{
+   "totalElements" : 2,
+   "number" : 0,
+   "numberOfElements" : 2,
+   "content" : [
+      {
+         "phoneNumber" : "+610452623798",
+         "dateofBirth" : "1985-03-16",
+         "customerId" : 2,
+         "customerName" : "Uchiha Sasuke"
+      },
+      {
+         "dateofBirth" : "1980-03-16",
+         "phoneNumber" : "+610452623758",
+         "customerId" : 1,
+         "customerName" : "Uzumaki Naruto"
+      }
+   ],
+   "size" : 20,
+   "sort" : {
+      "unsorted" : false,
+      "sorted" : true
+   },
+   "totalPages" : 1,
+   "last" : true,
+   "first" : true,
+   "pageable" : {
+      "offset" : 0,
+      "pageNumber" : 0,
+      "pageSize" : 20,
+      "paged" : true,
+      "unpaged" : false,
+      "sort" : {
+         "sorted" : true,
+         "unsorted" : false
+      }
+   }
+}
+```
+
