@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -38,5 +39,14 @@ public class CustomerController {
     @GetMapping(value = "/customers/{customerId}")
     public Customer findByCustomerId(@PathVariable Integer customerId) {
         return customerRepository.findById(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer [customerId=" + customerId + "] can't be found"));
+    }
+
+    @DeleteMapping(value = "/customers/{customerId}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable Integer customerId) {
+        return customerRepository.findById(customerId).map(customer -> {
+                    customerRepository.delete(customer);
+                    return ResponseEntity.ok().build();
+                }
+        ).orElseThrow(() -> new ResourceNotFoundException("Customer [customerId=" + customerId + "] can't be found"));
     }
 }
