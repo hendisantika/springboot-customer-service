@@ -106,3 +106,45 @@ $ curl -s -G http://localhost:8080/api/customers?sort=customerId,desc | json_pp
 }
 ```
 
+### Find all accounts of one customer
+```
+$  curl -s -G http://localhost:8080/api/customers/1/accounts | json_pp
+{
+   "pageable" : {
+      "offset" : 0,
+      "paged" : true,
+      "pageNumber" : 0,
+      "sort" : {
+         "unsorted" : true,
+         "sorted" : false
+      },
+      "pageSize" : 20,
+      "unpaged" : false
+   },
+   "content" : [
+      {
+         "balance" : 8000,
+         "openingDate" : "2016-05-16",
+         "accountNumber" : 10881061,
+         "accountName" : "Sarutobi Sandaime"
+      },
+      {
+         "accountNumber" : 10881069,
+         "accountName" : "Uchiha Madara",
+         "openingDate" : "2016-05-16",
+         "balance" : 12000
+      }
+   ],
+   "number" : 0,
+   "sort" : {
+      "sorted" : false,
+      "unsorted" : true
+   },
+   "totalPages" : 1,
+   "first" : true,
+   "numberOfElements" : 2,
+   "size" : 20,
+   "last" : true,
+   "totalElements" : 2
+}
+```
