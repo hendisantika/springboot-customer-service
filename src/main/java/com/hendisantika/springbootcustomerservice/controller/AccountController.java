@@ -1,6 +1,7 @@
 package com.hendisantika.springbootcustomerservice.controller;
 
 import com.hendisantika.springbootcustomerservice.domain.Account;
+import com.hendisantika.springbootcustomerservice.domain.Customer;
 import com.hendisantika.springbootcustomerservice.exception.ResourceNotFoundException;
 import com.hendisantika.springbootcustomerservice.repository.AccountRepository;
 import com.hendisantika.springbootcustomerservice.repository.CustomerRepository;
@@ -54,6 +55,16 @@ public class AccountController {
             accountRepository.delete(account);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("Account [accountId=" + accountId + "] can't be found"));
+    }
 
+    @PutMapping(value = "/customers/{customerId}/accounts/{accountId}")
+    public ResponseEntity<Account> updateAccount(@PathVariable Integer customerId, @PathVariable Integer accountId, @RequestBody Account newAccount) {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new ResourceNotFoundException("Customer [customerId=" + customerId + "] can't be found"));
+
+        return accountRepository.findById(accountId).map(account -> {
+            newAccount.setCustomer(customer);
+            accountRepository.save(newAccount);
+            return ResponseEntity.ok(newAccount);
+        }).orElseThrow(() -> new ResourceNotFoundException("Account [accountId=" + accountId + "] can't be found"));
     }
 }
