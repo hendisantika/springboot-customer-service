@@ -1,9 +1,12 @@
 package com.hendisantika.springbootcustomerservice.controller;
 
+import com.hendisantika.springbootcustomerservice.domain.Account;
+import com.hendisantika.springbootcustomerservice.exception.ResourceNotFoundException;
 import com.hendisantika.springbootcustomerservice.repository.AccountRepository;
 import com.hendisantika.springbootcustomerservice.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,4 +25,15 @@ public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @PostMapping(value = "/customers/{customerId}/accounts")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Account save(@PathVariable Integer customerId, @RequestBody Account account) {
+        return customerRepository.findById(customerId).map(customer -> {
+            account.setCustomer(customer);
+            return accountRepository.save(account);
+
+        }).orElseThrow(() -> new ResourceNotFoundException("Customer [customerId=" + customerId + "] can't be found"));
+
+    }
 }
