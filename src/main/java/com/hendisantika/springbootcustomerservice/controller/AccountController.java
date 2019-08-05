@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -41,5 +42,18 @@ public class AccountController {
     @GetMapping(value = "/customers/{customerId}/accounts")
     public Page<Account> allData(@PathVariable Integer customerId, Pageable pageable) {
         return accountRepository.findByCustomerCustomerId(customerId, pageable);
+    }
+
+    @DeleteMapping(value = "/customers/{customerId}/accounts/{accountId}")
+    public ResponseEntity<?> deleteAccount(@PathVariable Integer customerId, @PathVariable Integer accountId) {
+        if (!customerRepository.existsById(customerId)) {
+            throw new ResourceNotFoundException("Customer [customerId=" + customerId + "] can't be found");
+        }
+
+        return accountRepository.findById(accountId).map(account -> {
+            accountRepository.delete(account);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException("Account [accountId=" + accountId + "] can't be found"));
+
     }
 }
