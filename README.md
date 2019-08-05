@@ -150,7 +150,7 @@ $  curl -s -G http://localhost:8080/api/customers/1/accounts | json_pp
 ```
 ### Add a new customer 
 ```
-$ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -d '{"customerName": "Iris Zhang","dateofBirth": "1985-03-16","phoneNumber": "+610452623738"}' http://localhost:8088/restapi/customers/ | json_pp
+$ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -d '{"customerName": "Haruno Sakura","dateofBirth": "1985-03-16","phoneNumber": "+610452623738"}' http://localhost:8080/api/customers/ | json_pp
 {
    "dateofBirth" : "1985-03-16",
    "phoneNumber" : "+610452623738",
@@ -159,11 +159,33 @@ $ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -
 }
 ```
 ### Add an account of customer Sakura
-
-$ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -d '{"accountNumber": 30981069,"accountName": "gold plus","balance": 12000,"openingDate": "2016-05-16"}' http://localhost:8088/restapi/customers/3/accounts | json_pp
+```
+$ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -d '{"accountNumber": 30981069,"accountName": "gold plus","balance": 12000,"openingDate": "2016-05-16"}' http://localhost:8080/api/customers/3/accounts | json_pp
 {
    "balance" : 12000,
    "accountNumber" : 30981069,
    "accountName" : "gold plus",
    "openingDate" : "2016-05-16"
 }
+```
+
+### Update the new customer Sakura
+```
+$ curl -s -H "Content-Type: application/json;accept: application/json" -X PUT -d '{"customerName": "Haruno Sakura","dateofBirth": "1985-03-16","phoneNumber": "+610452623738"}' http://localhost:8080/api/customers/3 | json_pp
+{
+   "phoneNumber" : "+610452623738",
+   "customerName" : "Haruno Sakura",
+   "dateofBirth" : "1985-03-16",
+   "customerId" : 3
+}
+```
+### Update the account of customer Sakura
+```
+$ curl -s -H "Content-Type: application/json;accept: application/json" -X PUT -d '{"accountNumber": 30981069,"accountName": "silver plus","balance": 12000,"openingDate": "2016-05-16"}' http://localhost:8080/api/customers/3/accounts/30981069 | json_pp
+{
+   "accountName" : "silver plus",
+   "openingDate" : "2016-05-16",
+   "accountNumber" : 30981069,
+   "balance" : 12000
+}
+```
