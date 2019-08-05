@@ -148,3 +148,13 @@ $  curl -s -G http://localhost:8080/api/customers/1/accounts | json_pp
    "totalElements" : 2
 }
 ```
+### Add a new customer 
+```
+$ curl -s -H "Content-Type: application/json;accept: application/json" -X POST -d '{"customerName": "Iris Zhang","dateofBirth": "1985-03-16","phoneNumber": "+610452623738"}' http://localhost:8088/restapi/customers/ | json_pp
+{
+   "dateofBirth" : "1985-03-16",
+   "phoneNumber" : "+610452623738",
+   "customerName" : "Haruno Sakura",
+   "customerId" : 4
+}
+```
