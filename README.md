@@ -189,3 +189,10 @@ $ curl -s -H "Content-Type: application/json;accept: application/json" -X PUT -d
    "balance" : 12000
 }
 ```
+### Delete the customer Iris and all linked accounts
+```
+$ curl -s -i -H "Content-Type: application/json;accept: application/json" -X DELETE  http://localhost:8080/api/customers/3/
+HTTP/1.1 200
+Content-Length: 0
+Date: Fri, 23 Nov 2018 05:11:11 GMT
+```
