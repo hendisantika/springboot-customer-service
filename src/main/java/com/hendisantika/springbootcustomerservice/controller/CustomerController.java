@@ -3,11 +3,10 @@ package com.hendisantika.springbootcustomerservice.controller;
 import com.hendisantika.springbootcustomerservice.domain.Customer;
 import com.hendisantika.springbootcustomerservice.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,5 +27,11 @@ public class CustomerController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public Customer save(@RequestBody Customer customer) {
         return customerRepository.save(customer);
+    }
+
+    @GetMapping(value = "/customers")
+    public Page<Customer> getAllData(Pageable pageable) {
+        return customerRepository.findAll(pageable);
+
     }
 }
