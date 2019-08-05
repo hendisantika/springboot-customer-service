@@ -5,6 +5,8 @@ import com.hendisantika.springbootcustomerservice.exception.ResourceNotFoundExce
 import com.hendisantika.springbootcustomerservice.repository.AccountRepository;
 import com.hendisantika.springbootcustomerservice.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +36,10 @@ public class AccountController {
             return accountRepository.save(account);
 
         }).orElseThrow(() -> new ResourceNotFoundException("Customer [customerId=" + customerId + "] can't be found"));
+    }
 
+    @GetMapping(value = "/customers/{customerId}/accounts")
+    public Page<Account> allData(@PathVariable Integer customerId, Pageable pageable) {
+        return accountRepository.findByCustomerCustomerId(customerId, pageable);
     }
 }
