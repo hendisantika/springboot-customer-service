@@ -12,7 +12,7 @@ It shows how to build the RESTful endpoint to manupulate with two entities Custo
 
 * /customers HTTP Get # Get all customers
 * /customers HTTP Post # Create a new customer
-* /customers/{customerId} HTTP Get # Get a customoer
+* /customers/{customerId} HTTP Get # Get a customer
 * /customers/{customerId} HTTP Delete # Delete a customer
 * /customers/{customerId} HTTP Put # Update an existing customer
 * /customers/{customerId}/accounts HTTP Post #Create an account for a customer
